@@ -6,53 +6,61 @@
 package ca.sheridancollege.project;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Random;
+import java.util.Scanner;
 
-/**
- * The class that models your game. You should create a more specific child of this class and instantiate the methods
- * given.
- *
- * @author Taymour Breiche and and Hieu Nguyen  
- * @author Taymour Breiche and and Hieu Nguyen May 12th
- */
-public abstract class Game {
 
-    private final String name;//the title of the game
-    private ArrayList<Player> players;// the players of the game
+ // @author Taymour Breiche and Hieu Nguyen 
+ // @Author Taymour Breiche and Hieu Nguyen
+public class Game {
 
-    public Game(String name) {
-        this.name = name;
-        players = new ArrayList();
-    }
+    
+    static Random random = new Random();
+    static Scanner scanner = new Scanner(System.in);
+    static ArrayList <Cards> playerOneDeck = new ArrayList<>();
+    static ArrayList <Cards> playerTwoDeck = new ArrayList<>();
 
-    /**
-     * @return the name
-     */
-    public String getName() {
-        return name;
-    }
 
-    /**
-     * @return the players of this game
-     */
-    public ArrayList<Player> getPlayers() {
-        return players;
-    }
+    
+    // @param args the command line arguments
 
-    /**
-     * @param players the players of this game
-     */
-    public void setPlayers(ArrayList<Player> players) {
-        this.players = players;
-    }
+    public static void main(String[] args) {
+        System.out.println("Hey let's play a game of war!\nPlayer One type your name, please: ");
+        String namePlayerOne = scanner.nextLine();
+        playerOneDeck = Cards.createStackOne();
+        for (int i = 0; i < playerOneDeck.size(); i++) {
+            Collections.swap(playerOneDeck,randomizer(),i);
+        }//end for
 
-    /**
-     * Play the game. This might be one method or many method calls depending on your game.
-     */
-    public abstract void play();
 
-    /**
-     * When the game is over, use this method to declare and display a winning player.
-     */
-    public abstract void declareWinner();
+        System.out.println("Player One type your name, please:");
+        String namePlayerTwo = scanner.nextLine();
+        playerTwoDeck = Cards.createStackTwo();
+        for (int i = 0; i < playerTwoDeck.size(); i++) {
+            Collections.swap(playerTwoDeck,randomizer(),i);
+        }//end for
+        System.out.println("The game begins!");
+        Cards playerOneTopCard = playerOneDeck.get(0);
+        Cards playerTwoTopCard = playerTwoDeck.get(0);
 
+        System.out.println("Play One's top card is: " + playerOneTopCard);
+        System.out.println("VS");
+        System.out.println("Play Two's top card is: " + playerTwoTopCard);
+        int comparable = playerOneTopCard.compareTo(playerTwoTopCard);
+
+        System.out.println("The winner is: " + determineWinner(playerOneTopCard,playerTwoTopCard,comparable));
+    }//end method
+    static int randomizer(){
+        return random.nextInt(56);
+    }//end method
+    static String determineWinner(Cards playOneTopCard, Cards playerTwoTopCard, int comparable){
+        if (comparable == -1){
+            return "Player One!";
+        } if (comparable == 1) {
+            return "Player Two!";
+        } else {
+            return "It's a draw";
+        }//end if
+    }//end method
 }//end class
