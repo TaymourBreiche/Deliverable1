@@ -26,6 +26,7 @@ public class Cards implements Comparable<Cards> {
         this.rank = rank;
     }
 
+    // @return the suit of the card
     static ArrayList<Cards> createStackOne() {
         for (int i = 1; i < 15; i++) {
             switch (i) {
@@ -54,11 +55,13 @@ public class Cards implements Comparable<Cards> {
                     }
                     i = 1;
 
-            }
+            }// end switch
 
         } return cardsDeckOne;
 
-    }
+    }// end method
+
+    // @return the value of the card
     static ArrayList<Cards> createStackTwo() {
         for (int i = 1; i < 15; i++) {
             switch (i) {
@@ -87,11 +90,11 @@ public class Cards implements Comparable<Cards> {
                     }
                     i = 1;
 
-            }
+            }// end switch
 
         } return cardsDeckTwo;
 
-    }
+    }// end method
 
     public static void main(String[] args) {
     }
@@ -104,7 +107,7 @@ public class Cards implements Comparable<Cards> {
                 ", value=" + value +
                 ", rank=" + rank +
                 '}';
-    }
+    }// end method
 
     @Override
     public int compareTo(Cards opponentCardRank) {
@@ -114,7 +117,8 @@ public class Cards implements Comparable<Cards> {
         return 1;
     } else {
         return 0;
-        }
-    }
-}
+        }//end if
 
+    }//end method
+
+}//end class
